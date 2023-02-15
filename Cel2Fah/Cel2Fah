@@ -1,0 +1,8 @@
+#!/bin/bash
+
+read -p "Grados Celsius: " celsius
+fahrenheit=$(echo "scale=2; ($celsius * 9/5) + 32" | bc)
+echo "$celsius C = $fahrenheit F"
+
+
+
