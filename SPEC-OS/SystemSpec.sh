@@ -1,19 +1,82 @@
 #!/bin/bash
 # This Script show the system specifications
 # while cyle for update the system and show the system specifications
+
+function AptLog() {
+    echo "Historial de apt:"
+echo "------------------"
+
+# Busca los registros que contienen "Start-Date:"
+grep -n "Start-Date:" /var/log/apt/history.log |
+while read -r line
+do
+    # Obtiene el número de línea y el texto de la línea que contiene "Start-Date:"
+    linenum=$(echo "$line" | cut -d: -f1)
+    startdate=$(echo "$line" | cut -d: -f2-)
+
+    # Busca la línea que contiene "Requested-By:" dentro de las siguientes 5 líneas
+    reqby=$(tail -n +$linenum /var/log/apt/history.log | head -n 5 | grep -m 1 "Requested-By:" | cut -d: -f2-)
+
+    # Busca la línea que contiene "Commandline:" dentro de las siguientes 5 líneas
+    com=$(tail -n +$linenum /var/log/apt/history.log | head -n 5 | grep -m 1 "Commandline:" | cut -d: -f2-)
+
+    # Si se encontraron los tres campos, imprime el registro
+    if [ -n "$startdate" ] && [ -n "$reqby" ] && [ -n "$com" ]
+    then
+        echo "Registro:"
+        echo "  Fecha: $startdate"
+        echo "  Solicitado por: $reqby"
+        echo "  Comando ejecutado: $com"
+        echo "--------------------------------------------------------"
+    fi
+done
+}
+
 while true; do
-    read -p "¿Desea revisar actualizaciones? (s/n) " yn
-    case $yn in
-        [SsyY]* ) sudo apt update && sudo apt upgrade; 
-                read -p "Se han encontrado actualizaciones. ¿Desea realizarlas? (s/n) " yn2
-                if [ "$yn2" = "y"]; then
-                    sudo apt upgrade -y; sudo apt autoremove -y; sudo apt autoclean -y;
-                fi
-                break;;
-        [Nn]* ) break;;
-        * ) echo "Por favor responda sí o no.";;
+    echo "1. Revisar actualizaciones"
+    echo "2. Registro ultimas instalaciones"
+    echo "3. Continuar"
+    read -p "Seleccione una opción: " option
+
+    case $option in
+        1)
+            sudo apt update && sudo apt upgrade
+            read -p "Se han encontrado actualizaciones. ¿Desea realizarlas? (s/n) " yn2
+            if [ "$yn2" = "s" ] || [ "$yn2" = "S" ]; then
+                sudo apt upgrade -y
+                sudo apt autoremove -y
+                sudo apt autoclean -y
+                echo "Actualizaciones instaladas."
+            else
+                echo "No se han instalado actualizaciones."
+            fi
+            ;;
+        2)
+            AptLog
+            ;;
+
+        3)
+            break
+            ;;
+        *)
+            echo "Opción no válida. Seleccione 1 o 2."
+            ;;
     esac
 done
+
+# while true; do
+#     read -p "¿Desea revisar actualizaciones? (s/n) " yn
+#     case $yn in
+#         [SsyY]* ) sudo apt update && sudo apt upgrade; 
+#                 read -p "Se han encontrado actualizaciones. ¿Desea realizarlas? (s/n) " yn2
+#                 if [ "$yn2" = "y"]; then
+#                     sudo apt upgrade -y; sudo apt autoremove -y; sudo apt autoclean -y;
+#                 fi
+#                 break;;
+#         [Nn]* ) break;;
+#         * ) echo "Por favor responda sí o no.";;
+#     esac
+# done
 
 echo "
 ▒█▀▀▀█ █▀▀█ █▀▀ █▀▀ ░░ ▒█▀▀▀█ █▀▀ 
