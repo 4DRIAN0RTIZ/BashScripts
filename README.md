@@ -2,7 +2,7 @@
 
 Aquí hay una colección de scripts de Bash
 
-> Se actualizan periódicamente
+> Habrá actualizaciones de los scripts existentes y scripts nuevos.
 
 ## [AgeChecker](https://github.com/4DRIAN0RTIZ/BashScripts/tree/master/AgeChecker)
 
@@ -47,20 +47,3 @@ Este escript comprueba si un número es positivo, negativo o cero.
 ## [RetNum](https://github.com/4DRIAN0RTIZ/BashScripts/tree/master/RetNum)
 
 Este script solicita un númeroy después lo muestra en pantalla.
-
-
-~~~
-Se irán añadiendo más periódicamente, tanto como actualizaciones de los scripts,
-como scripts nuevos.
-~~~
-
-
-
-
-
-
-
-
-
-
-
