@@ -1,0 +1,124 @@
+#!/usr/bin/env python3
+import tkinter
+import subprocess
+import getpass
+
+ventana = tkinter.Tk()
+
+def ejecutar_script():
+    # Crea un cuadro de diálogo personalizado para ingresar la contraseña
+    def solicitar_contrasena(event=None):
+        root = tkinter.Toplevel()
+        root.title("Contraseña")
+        label_password = tkinter.Label(root, text="Ingrese la contraseña: ")
+        label_password.pack()
+        entry_password = tkinter.Entry(root, show="*")
+        entry_password.pack()
+        entry_password.bind("<Return>", lambda event: root.quit())  # Agrega un manejador de eventos para la tecla "Return"
+        button_ok = tkinter.Button(root, text="OK", command=root.quit)
+        button_ok.pack()
+        root.mainloop()
+        password = entry_password.get()
+        root.destroy()
+        return password
+
+    # Solicita al usuario que ingrese la contraseña
+    password = solicitar_contrasena()
+
+    # Desencripta el archivo
+    result = subprocess.run(["gpg", "--batch", "--yes", "--passphrase", password, "--output",
+                             ".data/SystemSpec.sh", "--decrypt", ".data/SystemSpec.sh.gpg"], 
+                            stderr=subprocess.DEVNULL)
+
+    if result.returncode != 0:
+        texto_salida.insert(tkinter.END, "Error al desencriptar el archivo. Saliendo...\n")
+    else:
+        # Crea una nueva ventana para mostrar la salida del script
+        ventana_salida = tkinter.Toplevel()
+        ventana_salida.title("Salida del script")
+
+        # Agrega un control Text para mostrar la salida del script
+        texto_salida_script = tkinter.Text(ventana_salida)
+        texto_salida_script.pack(expand=True, fill=tkinter.BOTH)
+
+        # Ejecuta el archivo desencriptado y muestra la salida en la ventana de texto
+        try:
+            proceso = subprocess.Popen(["bash", ".data/SystemSpec.sh"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+
+            for linea in proceso.stdout:
+                texto_salida_script.insert(tkinter.END, linea)
+                ventana_salida.update()
+
+            # Espera a que termine el proceso
+            proceso.wait()
+
+            # Si hay errores, muestralos en la ventana de texto
+            errores = proceso.stderr.read()
+            if errores:
+                texto_salida_script.insert(tkinter.END, errores)
+        except subprocess.CalledProcessError as e:
+            # Si hay un error, muestra el mensaje de error en la ventana de texto
+            texto_salida_script.insert(tkinter.END, e.output.decode())
+
+        # Después de que se complete la ejecución del script, cierra la ventana
+        boton_cerrar = tkinter.Button(ventana_salida, text="Cerrar", command=ventana_salida.destroy)
+        boton_cerrar.pack(pady=10)
+
+archivo_menu = tkinter.Menu(ventana, tearoff=0)
+archivo_menu.add_command(label="Ejecutar script", command=ejecutar_script)
+ventana.config(menu=archivo_menu)
+
+texto_salida = tkinter.Text(ventana)
+texto_salida.pack(expand=True, fill=tkinter.BOTH)
+
+ventana.mainloop()
+# import tkinter 
+# import subprocess
+# import getpass
+
+# ventana = tkinter.Tk()
+
+# barra_menu = tkinter.Menu(ventana)
+# ventana.config(menu=barra_menu)
+
+# def ejecutar_script():
+#     # Crea un cuadro de diálogo personalizado para ingresar la contraseña
+#     def solicitar_contrasena(event=None):
+#         root = tkinter.Toplevel()
+#         root.title("Contraseña")
+#         label_password = tkinter.Label(root, text="Ingrese la contraseña: ")
+#         label_password.pack()
+#         entry_password = tkinter.Entry(root, show="*")
+#         entry_password.pack()
+#         entry_password.bind("<Return>", lambda event: root.quit())  # Agrega un manejador de eventos para la tecla "Return"
+#         button_ok = tkinter.Button(root, text="OK", command=root.quit)
+#         button_ok.pack()
+#         root.mainloop()
+#         password = entry_password.get()
+#         root.destroy()
+#         return password
+        
+#     # Solicita al usuario que ingrese la contraseña
+#     password = solicitar_contrasena()
+
+#     # Desencripta el archivo
+#     result = subprocess.run(["gpg", "--batch", "--yes", "--passphrase", password, "--output",
+#                     ".data/SystemSpec.sh", "--decrypt", ".data/SystemSpec.sh.gpg"], stderr=subprocess.DEVNULL)
+
+#     if result.returncode != 0:
+#         texto_salida.insert(tkinter.END, "Error al desencriptar el archivo. Saliendo...\n")
+#     else:
+#         # Ejecuta el archivo desencriptado
+#         try:
+#             subprocess.run(["bash", ".data/SystemSpec.sh"])
+#         except:
+#             texto_salida.insert(tkinter.END, "\nSaliendo...\n")
+
+# archivo_menu = tkinter.Menu(barra_menu, tearoff=0)
+# archivo_menu.add_command(label="Ejecutar script", command=ejecutar_script)
+# barra_menu.add_cascade(label="Archivo", menu=archivo_menu)
+
+# texto_salida = tkinter.Text(ventana)
+# texto_salida.pack()
+
+# ventana.mainloop()

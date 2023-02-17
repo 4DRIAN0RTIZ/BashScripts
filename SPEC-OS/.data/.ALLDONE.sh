@@ -89,58 +89,95 @@ function print_Devtool(){
     if [ -z "$(which mysql)" ]; then
         echo -e "\033[1;31mMySQL: No se encuentra instalado MySQL.\033[0m"
     else
-        echo -e "\033[1;32mMySQL\033[0m": $(mysql --version | awk '{print $5}');
+        echo -e "\033[1;32mMySQL\033[0m": $(mysql --version | awk '{print $3}');
     fi
 }
-
 function AptLog() {
     echo "Historial de apt:"
-echo "------------------"
+    echo "------------------"
 
-# Busca los registros que contienen "Start-Date:"
-grep -n "Start-Date:" /var/log/apt/history.log |
-while read -r line
-do
-    # Obtiene el número de línea y el texto de la línea que contiene "Start-Date:"
-    linenum=$(echo "$line" | cut -d: -f1)
-    startdate=$(echo "$line" | cut -d: -f2-)
+    # Busca los registros que contienen "Start-Date:"
+    grep -n "Start-Date:" /var/log/apt/history.log | 
+    while read -r line
+    do
+        # Obtiene el número de línea y el texto de la línea que contiene "Start-Date:"
+        linenum=$(echo "$line" | cut -d: -f1)
+        startdate=$(echo "$line" | cut -d: -f2-)
 
-    # Busca la línea que contiene "Requested-By:" dentro de las siguientes 5 líneas
-    reqby=$(tail -n +$linenum /var/log/apt/history.log | head -n 5 | grep -m 1 "Requested-By:" | cut -d: -f2-)
+        # Busca la línea que contiene "Requested-By:" dentro de las siguientes 5 líneas
+        reqby=$(tail -n +$linenum /var/log/apt/history.log | head -n 5 | grep -m 1 "Requested-By:" | cut -d: -f2-)
 
-    # Busca la línea que contiene "Commandline:" dentro de las siguientes 5 líneas
-    com=$(tail -n +$linenum /var/log/apt/history.log | head -n 5 | grep -m 1 "Commandline:" | cut -d: -f2-)
+        # Busca la línea que contiene "Commandline:" dentro de las siguientes 5 líneas
+        com=$(tail -n +$linenum /var/log/apt/history.log | head -n 5 | grep -m 1 "Commandline:" | cut -d: -f2-)
 
-    # Si se encontraron los tres campos, imprime el registro
-    if [ -n "$startdate" ] && [ -n "$reqby" ] && [ -n "$com" ]
-    then
-        echo "Registro:"
-        echo "  Fecha: $startdate"
-        echo "  Solicitado por: $reqby"
-        echo "  Comando ejecutado: $com"
-        echo "--------------------------------------------------------"
+        # Si se encontraron los tres campos, imprime el registro
+        if [ -n "$startdate" ] && [ -n "$reqby" ] && [ -n "$com" ]
+        then
+            echo "Registro:"
+            echo "  Fecha: $startdate"
+            echo "  Solicitado por: $reqby"
+            echo "  Comando ejecutado: $com"
+            echo "--------------------------------------------------------"
+        fi
+    done
+    # ask to user if he wants copy the output to a file
+    read -p "¿Desea copiar el historial a un archivo? (s/n) " yn
+    if [ "$yn" = "s" ] || [ "$yn" = "S" ]; then
+        USER=$(whoami)
+        echo "Copiando historial a un archivo..."
+        mkdir -p /home/$USER/SpecOs/ 2>&1
+        echo "Historial de apt:" > /home/$USER/SpecOs/AptLog.txt
+        echo "------------------" >> /home/$USER/SpecOs/AptLog.txt
+        grep -n "Start-Date:" /var/log/apt/history.log | 
+        while read -r line
+        do
+            linenum=$(echo "$line" | cut -d: -f1)
+            startdate=$(echo "$line" | cut -d: -f2-)
+            reqby=$(tail -n +$linenum /var/log/apt/history.log | head -n 5 | grep -m 1 "Requested-By:" | cut -d: -f2-)
+            com=$(tail -n +$linenum /var/log/apt/history.log | head -n 5 | grep -m 1 "Commandline:" | cut -d: -f2-)
+            if [ -n "$startdate" ] && [ -n "$reqby" ] && [ -n "$com" ]
+            then
+                echo "Registro:" >> /home/$USER/SpecOs/AptLog.txt
+                echo "  Fecha: $startdate" >> /home/$USER/SpecOs/AptLog.txt
+                echo "  Solicitado por: $reqby" >> /home/$USER/SpecOs/AptLog.txt
+                echo "  Comando ejecutado: $com" >> /home/$USER/SpecOs/AptLog.txt
+                echo "--------------------------------------------------------" >> /home/$USER/SpecOs/AptLog.txt
+            fi
+        done
+        echo "Archivo creado en /home/$USER/SpecOs/AptLog.txt"
     fi
-done
 }
 
 while true; do
-    echo "1. Revisar actualizaciones"
+    echo "1. Actualizar Repositorios"
     echo "2. Registro ultimas instalaciones"
     echo "3. Continuar"
+    echo "4. Salir"
     read -p "Seleccione una opción: " option
 
     case $option in
         1)
-            sudo apt update && sudo apt upgrade
-            read -p "Se han encontrado actualizaciones. ¿Desea realizarlas? (s/n) " yn2
+            # Whiptail progress bar
+
+            sudo apt update -y > /tmp/aptupdate.log 2>&1
+            pasos=$( wc -l /tmp/aptupdate.log | awk '{print $1}' | sed 's/ //g')
+            x=0
+            while read i; do
+                x=$((x+1))
+                p=$((x*100/pasos))
+                echo "XXX"
+                echo "$p"
+                echo "Actualizando repositorios... ${x}/${pasos}"
+                echo "XXX"
+                sleep 0.2
+            done < /tmp/aptupdate.log | whiptail --gauge "Espere mientras se
+            actualizan los repositorios..." 6 60 0 --title "Actualizando repositorios"
+            whiptail --title "Actualización de repositorios" --msgbox "Repositorios actualizados correctamente" 8 78
+            read -p "Desea ver las instalaciones disponibles: (s/n) " yn2
             if [ "$yn2" = "s" ] || [ "$yn2" = "S" ]; then
-                sudo apt upgrade -y
-                sudo apt autoremove -y
-                sudo apt autoclean -y
-                echo "Actualizaciones instaladas."
-            else
-                echo "No se han instalado actualizaciones."
+                sudo apt upgrade;
             fi
+            break
             ;;
         2)
             AptLog
@@ -148,6 +185,9 @@ while true; do
 
         3)
             break
+            ;;
+        4)
+            exit 0
             ;;
         *)
             echo "Opción no válida. Seleccione 1 o 2."
@@ -206,7 +246,4 @@ print_Disk;
 print_Mem;
 print_Network;
 print_Devtool;
-
-
-
 
