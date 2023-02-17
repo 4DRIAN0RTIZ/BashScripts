@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # This Script show the system specifications
 # while cyle for update the system and show the system specifications
 

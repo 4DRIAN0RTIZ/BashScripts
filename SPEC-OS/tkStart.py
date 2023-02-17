@@ -4,6 +4,7 @@ import tkinter
 import subprocess
 import os
 import getpass
+import PIL
 
 # Password entry
 def get_password():
@@ -20,7 +21,7 @@ def menu_start():
     # Create the menu
     menu = tkinter.Tk()
     menu.title("Spec-OS")
-    menu.geometry("400x500")
+    menu.geometry("200x500")
     menu.resizable(0, 0)
     # Create the widgets
     label = tkinter.Label(menu, text="Menú", font=("Arial", 20), fg="#ffffff", bg="#000000")
@@ -33,10 +34,23 @@ def menu_start():
 # Create the passwin
 passwin = tkinter.Tk()
 toolbar = tkinter.Frame(passwin)
+toolbar.pack(side="top", fill="x")
 passwin.title("Spec-OS")
 passwin.geometry("400x200")
 passwin.resizable(0, 0)
 passwin.configure(background="#000000")
+
+# PhotoImage
+
+
+# Send the image to the background
+photo = tkinter.PhotoImage(file="./.data/.img/bg.gif")
+label = tkinter.Label(passwin, image=photo)
+label.place(x=0, y=0, relwidth=1, relheight=1)
+
+
+
+
 
 # Create the widgets
 label = tkinter.Label(passwin, text="Escribe la contraseña", font=("Arial", 20), fg="#ffffff", bg="#000000")
