@@ -2,6 +2,17 @@
 # This Script show the system specifications
 # while cyle for update the system and show the system specifications
 
+function print_Help(){
+    echo -e "\033[1;34m<----AYUDA--->\033[0m"
+    echo -e "\033[1;31m1. Actualizar Repositorios\033[0m: \033[1;34mActualiza los repositorios de paquetes.\033[0m"
+    echo -e "\033[1;31m2. Historial de Apt\033[0m: \033[1;34mMuestra el historial de apt.\033[0m"
+    echo -e "\033[1;31m3. Continuar con el flujo \033[0m: \033[1;34mContinua con el flujo del script.\033[0m"
+    echo -e "\033[1;31m4. Mostrar ayuda\033[0m: \033[1;34mMuestra la ayuda.\033[0m"
+    echo -e "\033[1;31m5. Salir\033[0m: \033[1;34mSale del script.\033[0m"
+    echo "Presione una tecla para continuar..."
+    read -n 1 -s -r
+    clear
+}
 
 function print_Sys(){
     echo -e "\033[1;34m<----SISTEMA--->\033[0m"
@@ -33,7 +44,7 @@ function print_Mem(){
 function print_Network(){
     echo -e "\033[1;34m<----RED--->\033[0m"
     if [ -z "$(iwgetid -r)" ]; then
-        echo -e "\033[1;31mNo hay conexión a red\033[0m"
+        echo -e "\033[1;31mNo hay    conexión a red\033[0m"
     else
         echo -e "\033[1;32mConectado a\033[0m": $(iwgetid -r);
         echo -e "\033[1;32mIP\033[0m": $Ip;
@@ -148,16 +159,8 @@ function AptLog() {
     fi
 }
 
-while true; do
-    echo "1. Actualizar Repositorios"
-    echo "2. Registro ultimas instalaciones"
-    echo "3. Continuar"
-    echo "4. Salir"
-    read -p "Seleccione una opción: " option
-
-    case $option in
-        1)
-            # Whiptail progress bar
+function Update(){
+    # Whiptail progress bar
             sudo apt update -y > /tmp/aptupdate.log 2>&1
             pasos=$(cat /tmp/aptupdate.log | sed '1,3d' | head -n -5 | wc -l)
             x=0
@@ -176,7 +179,25 @@ while true; do
             if [ "$yn2" = "s" ] || [ "$yn2" = "S" ]; then
                 sudo apt upgrade;
             fi
-            break
+
+}
+
+while true; do
+    clear
+    echo "Elija una opción:"
+    echo "1. Actualizar Repositorios"
+    echo "2. Registro ultimas instalaciones"
+    echo "3. Continuar"
+    echo "4. Mostrar ayuda"
+    echo "5. Salir"
+    read -p "Seleccione una opción: " option
+
+    case $option in
+        -h|--help)
+            print_Help
+            ;;
+        1)
+            Update
             ;;
         2)
             AptLog
@@ -186,6 +207,9 @@ while true; do
             break
             ;;
         4)
+            print_Help
+            ;;
+        5)
             exit 0
             ;;
         *)
@@ -193,6 +217,7 @@ while true; do
             ;;
     esac
 done
+clear
 
 # while true; do
 #     read -p "¿Desea revisar actualizaciones? (s/n) " yn
