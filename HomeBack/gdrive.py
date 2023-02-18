@@ -89,8 +89,8 @@ def subir_archivo(ruta_archivo, id_carpeta):
 
 
 # Ejemplo de uso
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # crear_archivo_texto('Prueba','Hola perro', '1cxk59Z4jhJLzWJe5Zi77yYc092LFiW5P')
-     subir_archivo('/home/buzort/.home-backup/backup-2023-02-18-12-05-08-buzort.tar.gz' , '1cxk59Z4jhJLzWJe5Zi77yYc092LFiW5P')
+    # subir_archivo('/home/buzort/.home-backup/backup-2023-02-18-12-05-08-buzort.tar.gz' , '1cxk59Z4jhJLzWJe5Zi77yYc092LFiW5P')
     # descargar_archivo('1svCRrVWlwkmiWeli1kA5gNkoX7RXDfqH', '/home/buzort/University/IoT/')
     # buscar_archivo("title = 'ENCRYPT'") 
