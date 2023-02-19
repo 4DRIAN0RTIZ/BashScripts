@@ -37,5 +37,5 @@ gd.subir_archivo(directorio_home+'/.home-backup/'+nombre_archivo, id_carpeta)
 
 gd.max_archivo(id_carpeta, max_archivo)
 
-print("Finalizado")
+print("Finalizado.")
 

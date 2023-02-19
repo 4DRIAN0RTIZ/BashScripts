@@ -50,3 +50,4 @@ tar -czf "$HOME/.home-backup/${nombre_archivo}" ${destino} 1>/dev/null 2>&1
 # Se ejecuta el script de python para enviar el archivo a google drive
 
 python3 HomeBack.py "${nombre_archivo}"
+
