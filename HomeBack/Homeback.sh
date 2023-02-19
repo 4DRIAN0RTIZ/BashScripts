@@ -7,7 +7,7 @@ if ! [ -x "$(command -v python3)" ]; then
 fi
 
 if ! [ -f "HomeBack.py" ]; then
-  echo 'El script de python no esta instalado. Instalando...'
+  echo 'Descargargo el script de python...'
   wget https://raw.githubusercontent.com/4DRIAN0RTIZ/BashScripts/master/HomeBack/Homeback.sh?token=GHSAT0AAAAAAB6VHXO4W6H4AM3LI6LNH2GKY7RRRCQ
 fi
 
@@ -51,6 +51,7 @@ done | whiptail --gauge "Copiando archivos..." 6 60 0 --title "Copia en progreso
 # Se comprime el directorio de destino en un archivo .tar.gz
 
 tar -czf "$HOME/.home-backup/${nombre_archivo}" ${destino} 1>/dev/null 2>&1
+
 
 # Se ejecuta el script de python para enviar el archivo a google drive
 
