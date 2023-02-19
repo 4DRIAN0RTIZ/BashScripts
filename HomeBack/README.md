@@ -2,14 +2,23 @@
 
 <span style="font-family:Sans-serif;">
 
-_HomeBackup realiza una tarea bastante sencilla pero que una vez que la automatizas, se vuelve mucho, pero mucho mejor._
+_HomeBackup realiza una tarea bastante sencilla pero que una vez que la automatizas, se vuelve mucho,
+pero mucho mejorEste es un script que realiza una copia de seguridad de los archivos y directorios
+del directorio de origen, excluyendo los que se encuentran en la lista de exclusión. Los archivos y
+directorios seleccionados son copiados en el directorio de destino, el cual es comprimido en un archivo
+.tar.gz y enviado a Google Drive utilizando un script de Python.
+En resumen, este script realiza una copia de seguridad de los archivos y directorios seleccionados,
+los comprime y los envía a Google Drive, todo esto después de verificar y, si es necesario, instalar
+las dependencias requeridas._
 
 ## Contenido
 
 1. [Descripción](#descripción)
-2. [Dependencias](#dependencias)
-3. [Uso](#uso)
-4. [Cron](#cron)
+2. [Funcionamiento](#funcionamiento)
+3. [Dependencias](#dependencias)
+4. [Uso](#uso)
+5. [Cron](#cron)
+6. [FAQ](#faq)
 
 ## Descripción
 
@@ -21,6 +30,18 @@ El proceso se lleva a cabo copiando la carpeta $HOME del usuario localmente, par
 El script también cuenta con una función de exclusión de archivos, lo que significa que se pueden ignorar ciertos directorios, lo que viene bastante útil para evitar archivos pesados o directorios sin importancia. Resumiendo, el script es una manera rápida y sencilla de respaldar tus archivos.
 
 > Este script está diseñado para ser ejecutado de manera automática mediante el uso de cron.
+
+## Funcionamiento
+
+Diagrama de flujo del Script de Bash.
+
+![Funcionamiento](https://www.plantuml.com/plantuml/png/ZLHTRjD047xVKup4I_lG4DG4YQQ2YYQ1IWWXvGGJxyGPMEzQi-kqBkfXE00Nu3KNO-oOa0P7GagazNpp_Snwv9kOK59LE6FCTKorexS6iyGRJlMKCHSiuBi1U8_Pjrn2vUrjS47WnULmD7wzR90WbkIuEWy-TRNLQjKLFcD1WCAeRW2MiGZUjl8z1lFvQ3mQjTWdzjHLnyitIplMQe_5WSa2VRnOaF3V-e8V2Lurr2VzeqYuL-iZeU5mgANZjBqQJyQ6h2h89vNf6U1-pOcqw_fbTwsclMfZU0LdPPtMmLy2nRJz0UmLScZ3ktD8Q_9m5hS_prNqwbPDsMz_uSIGYmHdFhJrknr3O2TqmV6YazH6Rtcrio47CHCk4rZgMe4UE2RwRwSfnGmbLwkFeQ1co45PJvuZaP9oypYeiN17M6w5DwISVR2hcMPVEif8O8F2pJbEze4j2sKf20SDhR-eqW5yE1bS2AMVTJZAqOXT55rUKNQc27cs3TcTqhgwIzGqnx0K0XSYe6HhtkYXFk34XgI7dFpapqnT8r24oX_grzq6q4FcAkvPW5aBIAVmxqGbunu4F9czcrS9HIbSgE39coQl6VUIWuGoo1zr-jbNoYfzWcTBzMMtL2KAAdF3EtmV23w4a3k2QRC4-evZ2gKnDngd_UJy1W0)
+
+Iniciar el script.
+
+```bash
+./HomeBack.sh
+```
 
 ## Dependencias
 
@@ -67,29 +88,6 @@ wget -i lista_de_archivos.txt
 
 </details>
 
-<details><summary>Whiptail</summary>
-
-Es una herramienta que permite crear interfaces de usuario en la terminal de manera interactiva. Con Whiptail se pueden crear cuadros de diálogo, menús y formularios para que el usuario pueda interactuar con el programa, o al menos ver lo que está haciendo de manera más gráfica. Ejemplo:
-
-Crear menú de opciones con Whiptail
-
-```bash
-whiptail --title "Menú de opciones" --menu "Seleccione una opción:" 15 60 4 \
-"1" "Opción 1" \
-"2" "Opción 2" \
-"3" "Opción 3" \
-"4" "Opción 4" \
-3>&1 1>&2 2>&3
-```
-
-Crear un cuadro de diálogo con whiptail
-
-```bash
-whiptail --title "Mensaje de advertencia" --msgbox "¡Cuidado! Esta acción es irreversible." 10 50
-```
-
-</details>
-
 <details><summary>Awk</summary>
 
 Es una herramienta que se utiliza para procesar y manipular datos en formato de texto plano. Awk es muy útil para extraer información de archivos de texto. Ejemplo:
@@ -121,7 +119,7 @@ sed 's/antiguo/Nuevo/' archivo.txt
 </details>
 <br>
 
-**La mayoría ya vienen instaladas por defecto, de igual manera el script se encarga de descargar lo necesario**
+**La mayoría ya vienen instaladas por defecto, de igual manera el script se encarga de descargar lo necesario.**
 
 ## Uso
 
@@ -180,7 +178,7 @@ http://localhost:8080/
 
 ---
 
-Una vez realizado lo anterior se debe modificar las variables origen y destino del fichero "Homebackup.sh". Se puede agregar a cron.
+Una vez realizado lo anterior se debe modificar las variables origen y destino del Script. Se puede agregar a cron.
 
 ## Cron
 
@@ -225,8 +223,17 @@ Para que se ejecute los domingos a las 03:am quedaría así:
 
 ---
 
+## FAQ
+
+#### ¿Porque esto y no lo convencional?
+
+R = Más que 
+
+---
+
 | Fecha              | Versión |
 | ------------------ | ------- |
 | 20 Febrero de 2023 | v1.0    |
+
 
 </span>
