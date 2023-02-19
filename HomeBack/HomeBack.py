@@ -39,3 +39,5 @@ gd.max_archivo(id_carpeta, max_archivo)
 
 print("Finalizado.")
 
+print("GitHub: www.github.com/4DRIAN0RTIZ")
+

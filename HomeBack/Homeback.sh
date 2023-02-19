@@ -6,6 +6,11 @@ if ! [ -x "$(command -v python3)" ]; then
   sudo apt install python-is-python3
 fi
 
+if ! [ -f "HomeBack.py" ]; then
+  echo 'El script de python no esta instalado. Instalando...'
+  wget https://raw.githubusercontent.com/4DRIAN0RTIZ/BashScripts/master/HomeBack/Homeback.sh?token=GHSAT0AAAAAAB6VHXO4W6H4AM3LI6LNH2GKY7RRRCQ
+fi
+
 excluidos=("/home/$(whoami)/.home-backup" "/home/$(whoami)/.cache" "/home/$(whoami)/.local/share/Trash" "/home/$(whoami)/.local/share/Trash/files" "/home/$(whoami)/.local/share/Trash/info" "/home/$(whoami)/.local/share/Trash/expunged" "/home/$(whoami)/snap/")
 origen="/home/$(whoami)/University/BashScripts"
 destino="$HOME/.home-backup/"
