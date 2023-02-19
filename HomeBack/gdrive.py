@@ -88,9 +88,19 @@ def subir_archivo(ruta_archivo, id_carpeta):
 #     return resultado
 
 
+# Funcion para solo dejar los ultimos 7 archivos .tar.gz en la carpeta
+
+def max_archivo(id_carpeta,extension):
+    credenciales = login()
+    lista_archivos = credenciales.ListFile({'q': f"'{id_carpeta}' in parents"}).GetList()
+    lista_archivos.sort(key=lambda x: x['modifiedDate'], reverse=True)
+    for archivo in lista_archivos[extension:]:
+        archivo.Delete()
+
 # Ejemplo de uso
 # if __name__ == '__main__':
     # crear_archivo_texto('Prueba','Hola perro', '1cxk59Z4jhJLzWJe5Zi77yYc092LFiW5P')
     # subir_archivo('/home/buzort/.home-backup/backup-2023-02-18-12-05-08-buzort.tar.gz' , '1cxk59Z4jhJLzWJe5Zi77yYc092LFiW5P')
     # descargar_archivo('1svCRrVWlwkmiWeli1kA5gNkoX7RXDfqH', '/home/buzort/University/IoT/')
     # buscar_archivo("title = 'ENCRYPT'") 
+    # max_archivo('1cxk59Z4jhJLzWJe5Zi77yYc092LFiW5P',7)
