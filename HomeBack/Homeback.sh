@@ -12,7 +12,7 @@ if ! [ -f "HomeBack.py" ]; then
 fi
 
 excluidos=("/home/$(whoami)/.home-backup" "/home/$(whoami)/.cache" "/home/$(whoami)/.local/share/Trash" "/home/$(whoami)/.local/share/Trash/files" "/home/$(whoami)/.local/share/Trash/info" "/home/$(whoami)/.local/share/Trash/expunged" "/home/$(whoami)/snap/")
-origen="/home/$(whoami)/University/BashScripts"
+origen="/home/$(whoami)/"
 destino="$HOME/.home-backup/"
 fecha_actual=$(date "+%Y-%m-%d-%H-%M-%S")
 nombre_archivo="backup-${fecha_actual}-$(whoami).tar.gz"
