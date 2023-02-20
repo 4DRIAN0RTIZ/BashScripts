@@ -3,7 +3,7 @@
 <span style="font-family:Sans-serif;">
 
 _HomeBackup realiza una tarea bastante sencilla pero que una vez que la automatizas, se vuelve mucho,
-pero mucho mejorEste es un script que realiza una copia de seguridad de los archivos y directorios
+pero mucho mejor. Este es un script que realiza una copia de seguridad de los archivos y directorios
 del directorio de origen, excluyendo los que se encuentran en la lista de exclusión. Los archivos y
 directorios seleccionados son copiados en el directorio de destino, el cual es comprimido en un archivo
 .tar.gz y enviado a Google Drive utilizando un script de Python.
@@ -225,15 +225,12 @@ Para que se ejecute los domingos a las 03:am quedaría así:
 
 ## FAQ
 
-#### ¿Porque esto y no lo convencional?
-
-R = Más que 
+_En proceso..._
 
 ---
 
 | Fecha              | Versión |
 | ------------------ | ------- |
 | 20 Febrero de 2023 | v1.0    |
-
 
 </span>
