@@ -56,7 +56,7 @@ done
 backup_dir="$HOME/.backup"
 
 # Carpetas a excluir en la copia de seguridad
-excluded_folders=(
+declare -A excluded_folders=(
     "$HOME/.cache"
     "$HOME/.bin"
     "$HOME/snap"
@@ -70,7 +70,10 @@ if [ ! -d "$backup_dir" ]; then
     mkdir -p "$backup_dir"
 fi
 
+
 # Eliminar archivos de backup antiguos
+# Se puede cambiar el número de días a conservar
+#find "$backup_dir" -type f -mtime +7 -delete
 find "$backup_dir" -type f -delete
 
 # Nombre del archivo de backup

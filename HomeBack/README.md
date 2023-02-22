@@ -35,7 +35,7 @@ El script también cuenta con una función de exclusión de archivos, lo que sig
 
 Diagrama de flujo del Script de Bash.
 
-![Funcionamiento](https://www.plantuml.com/plantuml/png/ZLHTRjD047xVKup4I_lG4DG4YQQ2YYQ1IWWXvGGJxyGPMEzQi-kqBkfXE00Nu3KNO-oOa0P7GagazNpp_Snwv9kOK59LE6FCTKorexS6iyGRJlMKCHSiuBi1U8_Pjrn2vUrjS47WnULmD7wzR90WbkIuEWy-TRNLQjKLFcD1WCAeRW2MiGZUjl8z1lFvQ3mQjTWdzjHLnyitIplMQe_5WSa2VRnOaF3V-e8V2Lurr2VzeqYuL-iZeU5mgANZjBqQJyQ6h2h89vNf6U1-pOcqw_fbTwsclMfZU0LdPPtMmLy2nRJz0UmLScZ3ktD8Q_9m5hS_prNqwbPDsMz_uSIGYmHdFhJrknr3O2TqmV6YazH6Rtcrio47CHCk4rZgMe4UE2RwRwSfnGmbLwkFeQ1co45PJvuZaP9oypYeiN17M6w5DwISVR2hcMPVEif8O8F2pJbEze4j2sKf20SDhR-eqW5yE1bS2AMVTJZAqOXT55rUKNQc27cs3TcTqhgwIzGqnx0K0XSYe6HhtkYXFk34XgI7dFpapqnT8r24oX_grzq6q4FcAkvPW5aBIAVmxqGbunu4F9czcrS9HIbSgE39coQl6VUIWuGoo1zr-jbNoYfzWcTBzMMtL2KAAdF3EtmV23w4a3k2QRC4-evZ2gKnDngd_UJy1W0)
+![Funcionamiento](Diagrama_Flujo.png)
 
 Iniciar el script.
 
@@ -225,7 +225,11 @@ Para que se ejecute los domingos a las 03:am quedaría así:
 
 ## FAQ
 
-_En proceso..._
+#### ¿Como consigo el id de carpeta?
+
+Al ingresar a una carpeta de drive, el link se ve de la siguiente manera:
+
+https://drive.google.com/drive/folders/aquiseencuentraeliddecarpeta
 
 ---
 
