@@ -1,5 +1,5 @@
 #!/bin/bash
-echo -e "\a"
+
 # Verificación de dependencias
 
 declare -A dependencies=(
@@ -82,5 +82,3 @@ done
 
  echo "Backup completado: $backup_dir/$backup_file"
 
-  echo "Abriendo Script de Python"
-  python3 HomeBack.py $backup_file
