@@ -44,48 +44,48 @@ def subir_archivo(ruta_archivo, id_carpeta):
 #     nombre_archivo = archivo['title']
 #     archivo.GetContentFile(ruta_descarga + nombre_archivo)
 
-# # Buscar archivo
+# Buscar archivo
 
-# def buscar_archivo(query):
-#     resultado = []
-#     credenciales = login()
-#     # Archivos con el nombre 'backup': title = 'backup'
-#     # Archivos que contengan 'backup' y 2023 en el nombre: title contains 'backup' and title contains '2023'
-#     # Archivos que NO contengan 'backup' en el nombre: not title contains 'backup'
-#     # Archvios que NO contengan 'backup' en el nombre y que contengan '2023' en el nombre: not title contains 'backup' and title contains '2023'
-#     # Archivos que contengan 'backup' en el nombre y que NO contengan '2023' en el nombre: title contains 'backup' and not title contains '2023'
-#     # Archivos en el basurero: trashed = true
+def buscar_archivo(query):
+    resultado = []
+    credenciales = login()
+    # Archivos con el nombre 'backup': title = 'backup'
+    # Archivos que contengan 'backup' y 2023 en el nombre: title contains 'backup' and title contains '2023'
+    # Archivos que NO contengan 'backup' en el nombre: not title contains 'backup'
+    # Archvios que NO contengan 'backup' en el nombre y que contengan '2023' en el nombre: not title contains 'backup' and title contains '2023'
+    # Archivos que contengan 'backup' en el nombre y que NO contengan '2023' en el nombre: title contains 'backup' and not title contains '2023'
+    # Archivos en el basurero: trashed = true
 
-#     lista_archivos = credenciales.ListFile({'q': query}).GetList()
-#     for archivo in lista_archivos:
-#         # ID Drive
-#         print('ID Drive:', archivo['id'])
-#         # Link de visualización embebido
-#         print('Link de visualización embebido:', archivo['embedLink'])
-#         # Link de descarga
-#         print('Link de descarga:', archivo['webContentLink'])
-#         # Nombre del archivo
-#         print('Nombre del archivo:', archivo['title'])
-#         # Tamaño del archivo
-#         print('Tamaño del archivo:', archivo['fileSize'])
-#         # Tipo de archivo
-#         print('Tipo de archivo:', archivo['mimeType'])
-#         # Fecha de creación
-#         print('Fecha de creación:', archivo['createdDate'])
-#         # Fecha de modificación
-#         print('Fecha de modificación:', archivo['modifiedDate'])
-#         # Fecha de última modificación
-#         print('Fecha de última modificación:', archivo['modifiedByMeDate'])
-#         # Fecha de última vista
-#         print('Fecha de última vista:', archivo['lastViewedByMeDate'])
-#         # ID de la carpeta padre
-#         print('ID de la carpeta padre:', archivo['parents'][0]['id'])
-#         # Esta en la papelera
-#         print('Esta en la papelera:', archivo['labels']['trashed'])
-#         # Versión del archivo
-#         print('Versión del archivo:', archivo['version'])
-#         resultado.append(archivo)
-#     return resultado
+    lista_archivos = credenciales.ListFile({'q': query}).GetList()
+    for archivo in lista_archivos:
+        # ID Drive
+        # print('ID Drive:', archivo['id'])
+        # Link de visualización embebido
+        print('Link de visualización embebido:', archivo['embedLink'])
+        # Link de descarga
+        # print('Link de descarga:', archivo['webContentLink'])
+        # Nombre del archivo
+        # print('Nombre del archivo:', archivo['title'])
+        # Tamaño del archivo
+        print('Tamaño del archivo:', archivo['fileSize'])
+        # Tipo de archivo
+        # print('Tipo de archivo:', archivo['mimeType'])
+        # Fecha de creación
+        # print('Fecha de creación:', archivo['createdDate'])
+        # Fecha de modificación
+        # print('Fecha de modificación:', archivo['modifiedDate'])
+        # Fecha de última modificación
+        # print('Fecha de última modificación:', archivo['modifiedByMeDate'])
+        # Fecha de última vista
+        # print('Fecha de última vista:', archivo['lastViewedByMeDate'])
+        # ID de la carpeta padre
+        # print('ID de la carpeta padre:', archivo['parents'][0]['id'])
+        # Esta en la papelera
+        # print('Esta en la papelera:', archivo['labels']['trashed'])
+        # Versión del archivo
+        # print('Versión del archivo:', archivo['version'])
+        resultado.append(archivo)
+    return resultado
 
 
 # Funcion para solo dejar los ultimos 7 archivos .tar.gz en la carpeta

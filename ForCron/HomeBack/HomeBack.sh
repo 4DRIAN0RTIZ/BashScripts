@@ -1,5 +1,18 @@
 #!/bin/bash
-echo -e "\a"
+
+# Script para hacer backup de la carpeta Home y subirla a Google Drive
+# Autor: Adrián Ortiz
+
+# Trap para controlar la señal de interrupción
+
+trap ctrl_c INT
+function ctrl_c() {
+  echo ""
+  echo "Saliendo..."
+  echo ""
+  exit 1
+}
+
 # Verificación de dependencias
 
 declare -A dependencies=(
@@ -16,8 +29,6 @@ for dependency in "${!dependencies[@]}"; do
       echo "Error al instalar '$dependency'"
       exit 1
     fi
-  else
-    echo "$dependency ya está instalado"
   fi
 done
 
@@ -38,8 +49,6 @@ for file in "${!files_to_download[@]}"; do
       echo "Error al descargar $file"
       exit 1
     fi
-  else
-    echo "$file ya está descargado"
   fi
 done
 
@@ -48,12 +57,12 @@ backup_dir="$HOME/.backup"
 
 # Carpetas a excluir en la copia de seguridad
 excluded_folders=(
-    # "$HOME/.cache"
-    # "$HOME/.bin"
-    # "$HOME/snap"
-    # "$HOME/.mozilla"
-    # "$HOME/.backup"
-    # "$HOME/.local"
+    "$HOME/.cache"
+    "$HOME/.bin"
+    "$HOME/snap"
+    "$HOME/.mozilla"
+    "$HOME/.backup"
+    "$HOME/.local"
 )
 
 # Crear directorio de backup si no existe
@@ -61,16 +70,14 @@ if [ ! -d "$backup_dir" ]; then
     mkdir -p "$backup_dir"
 fi
 
-echo "Eliminando archivos de backup antiguos"
 # Eliminar archivos de backup antiguos
 find "$backup_dir" -type f -delete
-echo "Fin de eliminación de archivos de backup antiguos"
 
 # Nombre del archivo de backup
 backup_file="backup_home_$(date +%Y%m%d_%H%M%S).tar.gz"
 
-# Crear archivo de backup y comprimirlo en el directorio de destino
-tar_cmd="tar -czf $backup_dir/$backup_file $HOME/University/IoT"
+# Crear archivo de backup y comprimirlo en el directorio de destino, el segundo parámetro es la ruta de la carpeta a comprimir.
+tar_cmd="tar -czf $backup_dir/$backup_file $HOME/University/IoT 2> /dev/null"
 
 
 for folder in "${excluded_folders[@]}"; do
@@ -78,9 +85,12 @@ for folder in "${excluded_folders[@]}"; do
 done
 
 
+ echo "Creando backup..."
  eval "$tar_cmd"
 
  echo "Backup completado: $backup_dir/$backup_file"
+ sleep 2
 
-  echo "Abriendo Script de Python"
-  python3 HomeBack.py $backup_file
+echo "Abriendo Script de Python"
+sleep 2
+python3 HomeBack.py $backup_file

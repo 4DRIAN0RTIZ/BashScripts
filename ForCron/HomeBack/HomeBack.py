@@ -17,7 +17,6 @@ client_secret = os.getenv("CLIENT_SECRET")
 directorio_home = os.getenv("DIRECTORIO_HOME")
 
 # Usa las variables de entorno para acceder a la API de Google Drive
-# ...
 
 if len(sys.argv) < 2:
     print("Debes pasar el nombre del archivo como argumento")
@@ -34,10 +33,9 @@ gauth = GoogleAuth()
 gauth.LocalWebserverAuth()
 
 gd.subir_archivo(directorio_home+'/.backup/'+nombre_archivo, id_carpeta)
-
 gd.max_archivo(id_carpeta, max_archivo)
 
 print("Finalizado.")
-
 print("GitHub: www.github.com/4DRIAN0RTIZ")
+
 
