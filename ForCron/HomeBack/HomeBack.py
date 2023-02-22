@@ -33,7 +33,7 @@ print("Subiendo archivo: " + nombre_archivo)
 gauth = GoogleAuth()
 gauth.LocalWebserverAuth()
 
-gd.subir_archivo(directorio_home+'/.home-backup/'+nombre_archivo, id_carpeta)
+gd.subir_archivo(directorio_home+'/.backup/'+nombre_archivo, id_carpeta)
 
 gd.max_archivo(id_carpeta, max_archivo)
 
