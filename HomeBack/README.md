@@ -231,10 +231,4 @@ Al ingresar a una carpeta de drive, el link se ve de la siguiente manera:
 
 https://drive.google.com/drive/folders/aquiseencuentraeliddecarpeta
 
----
-
-| Fecha              | Versión |
-| ------------------ | ------- |
-| 20 Febrero de 2023 | v1.0    |
-
 </span>
