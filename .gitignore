@@ -1,3 +1,4 @@
+.gitignore
 HomeBack/gdrive.py
 HomeBack/settings.yaml
 HomeBack/HomeBack.py
