@@ -215,14 +215,7 @@ Para que se ejecute los domingos a las 03:am quedaría así:
 ```
 
 ---
-
-#### Pendientes
-
-- [ ] Descargar archivo .env de manera automática
-- [ ] Agregar script de manera automática en cron
-
----
-
+  
 ## FAQ
 
 #### ¿Como consigo el id de carpeta?
