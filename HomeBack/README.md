@@ -25,7 +25,7 @@ las dependencias requeridas._
 Es una herramienta de cli fue desarrollada debido a mi necesidad de tener copias de seguridad de mis archivos, en especial los archivos de configuración; ya que permite hacer una copia de seguridad en la carpeta
 principal de usuario en su propio sistema.
 
-El proceso se lleva a cabo copiando la carpeta $HOME del usuario localmente, para después comprimir los archivos y subirlos directamente a una carpeta en Google Drive.
+El proceso se lleva a cabo comprimiendo la carpeta $HOME del usuario localmente, para después subirlos directamente a una carpeta en Google Drive.
 
 El script también cuenta con una función de exclusión de archivos, lo que significa que se pueden ignorar ciertos directorios, lo que viene bastante útil para evitar archivos pesados o directorios sin importancia. Resumiendo, el script es una manera rápida y sencilla de respaldar tus archivos.
 
