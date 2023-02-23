@@ -35,7 +35,7 @@ El script también cuenta con una función de exclusión de archivos, lo que sig
 
 Diagrama de flujo del Script de Bash.
 
-![Funcionamiento](Diagrama_Flujo.png)
+![Funcionamiento](media.png)
 
 Iniciar el script.
 
