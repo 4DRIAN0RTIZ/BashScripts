@@ -1,6 +1,6 @@
 # Scripts de Bash
 
-Aquí hay una colección de scripts de Bash
+Colección de scripts de bash
 
 > Habrá actualizaciones de los scripts existentes y scripts nuevos.
 
