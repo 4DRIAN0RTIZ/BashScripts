@@ -94,6 +94,10 @@ done
  echo "Backup completado: $backup_dir/$backup_archivo"
  sleep 2
 
+ # Instalar dependencias de python
+
+ pip3 install --user -r requirements.txt
+
 echo "Abriendo Script de Python"
 sleep 2
 python3 HomeBack.py $backup_archivo
