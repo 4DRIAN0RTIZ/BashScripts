@@ -57,12 +57,12 @@ backup_dir="$HOME/.backup"
 
 # Carpetas a excluir en la copia de seguridad
 declare -A carpetas_excluidas=(
-    "$HOME/.cache"
-    "$HOME/.bin"
-    "$HOME/snap"
-    "$HOME/.mozilla"
-    "$HOME/.backup"
-    "$HOME/.local"
+    ["$HOME/.cache"]='',
+    ["$HOME/.bin"]='',
+    ["$HOME/snap"]='',
+    ["$HOME/.mozilla"]='',
+    ["$HOME/.backup"]='',
+    ["$HOME/.local"]='',
 )
 
 # Crear directorio de backup si no existe
@@ -80,7 +80,7 @@ find "$backup_dir" -type f -delete
 backup_archivo="backup_home_$(date +%Y%m%d_%H%M%S).tar.gz"
 
 # Crear archivo de backup y comprimirlo en el directorio de destino, el segundo parámetro es la ruta de la carpeta a comprimir.
-tar_cmd="tar -czf $backup_dir/$backup_archivo $HOME 2> /dev/null"
+tar_cmd="tar -czf $backup_dir/$backup_archivo $HOME/Downloads 2> /dev/null"
 
 
 for carpeta in "${carpetas_excluidas[@]}"; do
@@ -93,6 +93,10 @@ done
 
  echo "Backup completado: $backup_dir/$backup_archivo"
  sleep 2
+
+ # Instalar dependencias de python
+
+ pip3 install --user -r requirements.txt
 
 echo "Abriendo Script de Python"
 sleep 2
